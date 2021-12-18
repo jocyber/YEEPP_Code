@@ -1,5 +1,4 @@
 # Database_Project
-We may want to think about adding Twitter Bootstrap to simplify the CSS portion of the project.
 
 Prototype ideas for website:
 - Computer Science library (Sells books, products, etc.)
