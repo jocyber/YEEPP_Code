@@ -58,3 +58,27 @@
         border-top:0 none;
     }
 }
+
+#codeFormat {
+    margin-top: 2.5%;
+    margin-bottom: 2%;
+}
+
+#editor {
+    float: right;
+    width: 52%;
+    height: 50%;
+    border-color: lightgray;
+
+    /*For text*/
+    padding: 15px;
+    font-size: 12pt;
+    font-family: monospace;
+    line-height: 20pt;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+#editor:focus {
+    outline: none !important;
+}
