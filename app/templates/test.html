@@ -4,8 +4,20 @@
 {% block header %}{% endblock %}
 
 {% block body %}
-<div id="codeFormat">
-    <!--This is where the problem statement code will go-->
+<!--Left side of the screen should contain the problem statement-->
+
+<div id="right-editor">
+    <div id="top-right-bar">
+        <label for="languages">
+            <select name="languages">
+                <option value="python3">Python3</option>
+                <option value="c++">C++</option>
+                <option value="java">Java</option>
+                <option value="javascript">JavaScript</option>
+                <option value="c#">C#</option>
+            </select>
+        </label>
+    </div>
 
     <!--Code for the code editor-->
     <form action="#" method="POST">

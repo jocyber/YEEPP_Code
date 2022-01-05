@@ -59,16 +59,10 @@
     }
 }
 
-#codeFormat {
-    margin-top: 2.5%;
-    margin-bottom: 2%;
-}
-
 #editor {
-    float: right;
-    width: 52%;
-    height: 50%;
     border-color: lightgray;
+    width: 100%;
+    height: 95%;
 
     /*For text*/
     padding: 15px;
@@ -81,4 +75,25 @@
 
 #editor:focus {
     outline: none !important;
+}
+
+#right-editor {
+    float: right;
+    border-color: lightgray;
+    border-left-color: rgb(150, 150, 150);
+    display: block;
+
+    width: 56%;
+    height: 100%;
+}
+
+#top-right-bar {
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    display: inline-block;
+    overflow: hidden;
+
+    background-color: rgb(238, 236, 236);
+    width: 100%;
+    padding: 7px;
 }
