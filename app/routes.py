@@ -12,9 +12,9 @@ def index():
 @app.route('/test', methods=["GET", "POST"])
 def testPage():
     if req.method == "POST":
-        code = req.form("codeEdit") #name of input from html file
+        code = req.form["codeEdit"] #name of input from html file
         #run the code through the docker container and return the output
-        return redi(url_for("test")) #return to the test page
+        return redi("test") #return to the test page
     else:
         return render_template("test.html")
 
