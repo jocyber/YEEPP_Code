@@ -14,6 +14,13 @@ def testPage():
     if req.method == "POST":
         code = req.form["codeEdit"] #name of input from html file
         #run the code through the docker container and return the output
+        if req.form["action"] == "Run Code":
+            #run the 'Run Code' command
+            pass
+        else:
+            #run the 'submit' command which will modify the database
+            pass
+
         return redi("test") #return to the test page
     else:
         return render_template("test.html")
