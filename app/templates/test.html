@@ -7,23 +7,27 @@
 <!--Left side of the screen should contain the problem statement-->
 
 <div id="right-editor">
-    <div id="top-right-bar">
-        <label for="languages">
-            <select name="languages">
-                <option value="python3">Python</option>
-                <option value="c++">C++</option>
-                <option value="java">Java</option>
-                <option value="javascript">JavaScript</option>
-                <option value="c#">C#</option>
-            </select>
-        </label>
-    </div>
-
     <!--Code for the code editor-->
     <form action="#" method="POST">
+        <div id="top-right-bar">
+            <label for="languages">
+                <select name="languages">
+                    <option value="python3">Python</option>
+                    <option value="c++">C++</option>
+                    <option value="java">Java</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="c#">C#</option>
+                </select>
+            </label>
+        </div>
+
         <textarea id="editor" style="resize: none;" name="codeEdit" rows="30"></textarea>
         <input type="submit" name="action" value="Run Code" style="margin-right: 20px;">
         <input type="submit" name="action" value="Submit">
     </form>
 </div>
+
+<script type="text/javascript">
+    document.getElementById("editor").innerText = "{{data}}";;
+</script>
 {% endblock %}
