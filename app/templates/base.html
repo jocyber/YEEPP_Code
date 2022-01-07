@@ -18,6 +18,7 @@
     </head>
 
     <body>
+      <div class="wrapper">
         <!--Prototype code for Navbar. Taken from bootstrap website.-->
         <nav class="navbar navbar-default navbar-inverse" role="navigation">
             <div class="container-fluid">
@@ -100,6 +101,9 @@
         <!--Code will be filled in by child templates-->
         {% block header %} {% endblock %}
         {% block body %} {% endblock %}
+        </div>
+
+        {%block footer%}{%endblock%}
 
         <!--Make sure these links come last-->
         <!-- jQuery -->
