@@ -14,7 +14,7 @@ def index():
 def testPage():
     if req.method == "POST":
         code = req.form["codeEdit"] #name of input from html file
-        #run the code through the docker container and return the output
+ 
         if req.form["action"] == "Run Code":
             #run the 'Run Code' command
             #below return is a test

@@ -8,26 +8,21 @@
 
 <div id="right-editor">
     <!--Code for the code editor-->
-    <form onsubmit="processString();">
+    <form>
         <div id="top-right-bar">
             <label for="languages">
                 <select name="languages">
-                    <option value="python3">Python (For the filthy casuals)</option>
-                    <option value="c++">C++ (For the real programmers)</option>
-                    <option value="java">Java (For the moderate/old programmers)</option>
-                    <option value="javascript">JavaScript (For the baby programmers)</option>
-                    <option value="c#">C# (For the Microsoft loyalists)</option>
+                    <option value="python3">Python</option>
+                    <option value="c++">C++</option>
+                    <option value="java">Java</option>
                 </select>
             </label>
         </div>
 
         <textarea id="editor" style="resize: none;" name="codeEdit" rows="30"></textarea>
-        <input type="submit" name="action" value="Run Code" style="margin-right: 20px;">
-        <input type="submit" name="action" value="Submit">
+        <input id="run" type="submit" name="action" value="Run Code" style="margin-right: 20px;">
+        <input id="sub" type="submit" name="action" value="Submit">
     </form>
 </div>
 
-<script type="text/javascript">
-    document.getElementById("editor").innerText = "{{data}}";;
-</script>
 {% endblock %}
