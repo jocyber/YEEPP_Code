@@ -2,7 +2,7 @@
 $(document).ready(function()  {
 
     //process the users code
-    $("form").on('submit', function (e) {
+    $("#code_form").submit(function (e) {
         //function to ignore all single and double quotes - O(n)
         console.log("success");
         let input = $("editor").innerText;//.replace(/\"/g, '\\"');

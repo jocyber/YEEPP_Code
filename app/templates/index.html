@@ -3,8 +3,8 @@
 
 {% block header %} <h1>Hello, World!</h1> {%endblock%}
 {% block body %} 
-    {% for val in values%}
-    <!--val.column-->
-    <p>{{val}}</p>
+    {% for val in data%}
+        <!--val.column-->
+        <p>{{val.title}}, {{val.acceptance}}, {{val.difficulty}}</p>
     {%endfor%}
 {% endblock %}
