@@ -1,12 +1,27 @@
 from flask import render_template, url_for, request as req, redirect as redi
-from app import app, db
+from app import app
+from app.models import Problems
+import sqlite3 as sql
+
+
 
 #return the index.html file
 @app.route('/')
 def index():
     #checks templates directory by default
-    cursor = db.session.execute("select * from problems")
-    return render_template("index.html", data=cursor) #values=cursor)
+
+    #Potentially setup a tool that periodically caches this but for now I left it as grabbing everytime...
+    connection = sql.connect("database.db")
+
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM problems")
+    rows = cursor.fetchall()
+    print(rows)
+    connection.close()
+
+    problems = [Problems(x) for x in rows]
+
+    return render_template("index.html", data=problems) #values=cursor)
 
 #function for handling the users code
 @app.route('/test', methods=["GET", "POST"])
