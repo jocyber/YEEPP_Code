@@ -1,4 +1,5 @@
 from flask import render_template, url_for, request as req, redirect as redi
+from flask import request
 from app import app
 from app.models import Problems
 import sqlite3 as sql
@@ -22,6 +23,17 @@ def index():
     problems = [Problems(x) for x in rows]
 
     return render_template("index.html", data=problems) #values=cursor)
+
+
+#Here is the ajax code should you need it
+#This is a mockup for using it when the code is to be run
+@app.route('/parse_code',methods=['POST'])
+def parse_code():
+    if request.method == "POST":
+        #Output of AJAX for me to play with
+        data = request.form
+
+
 
 #function for handling the users code
 @app.route('/test', methods=["GET", "POST"])
