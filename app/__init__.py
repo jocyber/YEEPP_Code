@@ -6,18 +6,19 @@ app = Flask(__name__)
 
 from app import routes
 
-
 if not exists("database.db"):
     connection = sql.connect("database.db")
     cursor = connection.cursor()
 
     with open("app/static/scripts/creation.sql") as fp:
         command = fp.read()
-    print("test")
+
     command = command.replace("\n","")
     command = command.split(":)")
+
     for x in command:
         cursor.execute(x)
         connection.commit()
+
     connection.close()
 

@@ -1,10 +1,15 @@
 {% extends "base_with_footer.html" %}
 {% block title %} Flask web application {% endblock%}
 
-{% block header %} <h1>Hello, World!</h1> {%endblock%}
+{% block header %}  {%endblock%}
 {% block body %} 
-    {% for val in data%}
-        <!--val.column-->
-        <p>{{val.title}}, {{val.acceptance}}, {{val.difficulty}}</p>
-    {%endfor%}
+
+        {% for val in data%}
+            <div>
+                <ol class="gradient-list" style="text-align: left;">
+                    <li><a href="test" id="first_ele">{{val.get_title()}}</a>  <div class="space">Acceptance: {{val.get_acceptance()}}%</div> <div class="space">Difficulty: {{val.get_difficulty()}}</div></li>
+                </ol>
+            </div>
+            
+        {%endfor%}   
 {% endblock %}

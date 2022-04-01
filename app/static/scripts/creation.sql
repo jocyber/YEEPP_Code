@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS problems (
      description  VARCHAR(2000) NOT NULL,
      likes  int(16) NOT NULL,
      dislikes  int(16) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 :)
 
@@ -18,17 +18,18 @@ CREATE TABLE IF NOT EXISTS examples  (
    output  VARCHAR(2000) NOT NULL,
    description  VARCHAR(2000) NOT NULL,
   FOREIGN KEY (problem_id) REFERENCES problems(problem_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
+
+:)
 
 CREATE TABLE IF NOT EXISTS  users  (
    user_id  INT AUTO_INCREMENT PRIMARY KEY,
    full_name  VARCHAR(32) NOT NULL,
-   created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    country_code  int(16) NOT NULL,
    password  VARCHAR(25) NOT NULL,
    username  VARCHAR(25) NOT NULL,
    email  VARCHAR(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 :)
 
@@ -38,7 +39,7 @@ CREATE TABLE IF NOT EXISTS  userproblems  (
    isFavorite  BIT(1),
    isComplete  BIT(1),
   FOREIGN KEY (problem_id) REFERENCES problems(problem_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 :)
 
@@ -47,8 +48,16 @@ INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,li
 
 :)
 
-INSERT INTO users(user_id,full_name,created_at,country_code,password,username,email) VALUES
-(1,"John Doe",now(),123,"password1","user1","user1@uga.edu");
+INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
+(2,"medium",0,0,"01Knapsack","dynamic programming stuffz",0,0);
+:)
+
+INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
+(3,"medium",0,0,"topological sort","graph theory all the way",0,0);
+:)
+
+INSERT INTO users(user_id,full_name,country_code,password,username,email) VALUES
+(1,"John Doe",123,"password1","user1","user1@uga.edu"); 
 
 :)
 
