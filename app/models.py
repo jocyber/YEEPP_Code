@@ -16,3 +16,14 @@ class Problems():
 
     def get_difficulty(self):
         return self.difficulty
+
+class Problem_Info():
+
+    def __init__(self,data):
+        self.id = data[0]
+        self.title = data[4]
+        self.description = data[5]
+        self.likes = data[6]
+        self.dislikes = data[7]
+        self.input = data[10]
+        self.output = data[11]

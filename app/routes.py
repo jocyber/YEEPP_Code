@@ -1,7 +1,7 @@
 from flask import render_template, url_for, request as req, redirect as redi
 from flask import request
 from app import app
-from app.models import Problems
+from app.models import Problems, Problem_Info
 import sqlite3 as sql
 
 
@@ -34,6 +34,19 @@ def parse_code():
 #function for handling the users code
 @app.route('/test', methods=["GET", "POST"])
 def testPage():
+    if req.method == 'GET':
+        conn = sql.connect("database.db")
+        cursor = conn.cursor()
+
+        #here add get title of problem to parse the single output
+        cursor.execute("SELECT * FROM problems as p inner join examples as e on p.problem_id=e.problem_id and p.title='';")#fill in title
+        row = cursor.fetchall()
+        
+        problem_info = Problem_Info(row)
+        conn.close()
+
+        return render_template("test.html", descr=problem_info)
+
     #when already loaded
     if req.method == "POST":
         code = req.form["codeEdit"] #name of input from html file
