@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS examples  (
    input  VARCHAR(2000) NOT NULL,
    output  VARCHAR(2000) NOT NULL,
    description  VARCHAR(2000) NOT NULL,
+    methodHeader VARCHAR(2000) NOT NULL,v
   FOREIGN KEY (problem_id) REFERENCES problems(problem_id)
 );
 
@@ -97,18 +98,18 @@ INSERT INTO users(user_id,full_name,country_code,password,username,email) VALUES
 
 :)
 
-INSERT INTO examples(example_id,problem_id,input,output,description) VALUES
-(1,1,"Hello World","Hello World","Go Dawgs!!!");
+INSERT INTO examples(example_id,problem_id,input,output,description, methodHeader) VALUES
+(1,1,"Hello World","Hello World","Go Dawgs!!!", "def (input)");
 
 :)
 
-INSERT INTO examples(example_id,problem_id,input,output,description) VALUES
-(2,2,"FIX BASED ON WHO CREATED PROBLEM","Hello World","Go Dawgs!!!");
+INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
+(2,2,"FIX BASED ON WHO CREATED PROBLEM","Hello World","Go Dawgs!!!","def (input)");
 
 :)
 
-INSERT INTO examples(example_id,problem_id,input,output,description) VALUES
-(3,3,"Hello World","Hello World","Go Dawgs!!!");
+INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
+(3,3,"Hello World","Hello World","Go Dawgs!!!","def topSort(input)";
 
 :)
 
