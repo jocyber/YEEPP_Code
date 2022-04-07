@@ -56,8 +56,17 @@ INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,li
 (3,"medium",0,0,"topological sort","graph theory all the way",0,0);
 :)
 
+
 INSERT INTO users(user_id,full_name,country_code,password,username,email) VALUES
 (1,"John Doe",123,"password1","user1","user1@uga.edu"); 
+
+:)
+INSERT INTO users(user_id,full_name,country_code,password,username,email) VALUES
+(2,"Michael Brickbreaker",243,"RELATIONAL","TopDownCoder123","MBrickbreaker@uga.edu"); 
+:)
+INSERT INTO users(user_id,full_name,country_code,password,username,email) VALUES
+(3,"Ben Jones",1,"SaltedHash7","BenJonesYEEPPER","Bdj93590@uga.edu"); 
+:)
 
 :)
 
