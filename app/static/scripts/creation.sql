@@ -55,6 +55,33 @@ INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,li
 INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
 (3,"medium",0,0,"topological sort","graph theory all the way",0,0);
 :)
+INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
+(4,"easy",0,0,"Worth half semester grade","Given a professor and a question return true if a question is worth half the semester grade and false otherwise. A question is worth half a semester grade if professor is equal to ‘Dr.Mario’",0,0);
+:)
+
+INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
+(5,"easy",0,0,"Python lover","Given an array of Strings return string “Python is my love” if Python is found in the array and “:(“ otherwise
+",0,0);
+:)
+
+INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
+(6,"easy",0,0,"Will the flight land","Given a pilot and a destination return true if the plane will land and false otherwise.  Plane will Land if it is flown by Daniel or if the destination is “Galapagos Islands” and false otherwise. However If plane is flown by “Daniel'' and the destination is “Galapagos Islands” the plane will not land. 
+",0,0);
+:)
+
+INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
+(7,"easy",0,0,"Funny Jokes","Given a joke, return “LOL” if it is funny and “Do better” otherwise. A joke is funny if it contains the phrase “Knock Knock” or “Your Mom”",0,0);
+:)
+
+INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
+(8,"easy",0,0,"Boring math","Given an Array of integers, subtract the average of all the integers from each integer in the array and then sort from least to greatest and then return the array.",0,0);
+:)
+INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
+(9,"easy",0,0,"Sum is odd or even","
+Given an integer return true if the sum of the digits is even and false if odd.
+",0,0);
+:)
+
 
 
 INSERT INTO users(user_id,full_name,country_code,password,username,email) VALUES
