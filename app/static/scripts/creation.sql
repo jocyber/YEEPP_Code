@@ -102,6 +102,18 @@ INSERT INTO examples(example_id,problem_id,input,output,description) VALUES
 
 :)
 
+INSERT INTO examples(example_id,problem_id,input,output,description) VALUES
+(2,2,"FIX BASED ON WHO CREATED PROBLEM","Hello World","Go Dawgs!!!");
+
+:)
+
+INSERT INTO examples(example_id,problem_id,input,output,description) VALUES
+(3,3,"Hello World","Hello World","Go Dawgs!!!");
+
+:)
+
+
+:)
 INSERT INTO userproblems(user_id,problem_id,isFavorite,isComplete) VALUES
 (1,1,0,0);
 
