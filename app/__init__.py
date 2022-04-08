@@ -17,6 +17,7 @@ if not exists("database.db"):
     command = command.split(":)")
 
     for x in command:
+        print(x)
         cursor.execute(x)
         connection.commit()
 

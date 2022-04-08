@@ -2,7 +2,7 @@
 #class for the coding problems
 class Problems():
 
-    def __init__(self,data):
+    def __init__(self,data=[0,1,2,3,4,5,112,3]):
         self.id = data[0]
         self.title = data[4]
         self.acceptance = data[2]
@@ -17,9 +17,12 @@ class Problems():
     def get_difficulty(self):
         return self.difficulty
 
+    def get_id_path(self):
+        return f"test?id={self.id}"
+
 class Problem_Info():
 
-    def __init__(self,data):
+    def __init__(self,data=[1 for x in range(1,10000)]):
         self.id = data[0]
         self.title = data[4]
         self.description = data[5]

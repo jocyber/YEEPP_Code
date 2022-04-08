@@ -39,13 +39,16 @@ def testPage():
         cursor = conn.cursor()
 
         #here add get title of problem to parse the single output
-        cursor.execute("SELECT * FROM problems as p inner join examples as e on p.problem_id=e.problem_id and p.title='';")#fill in title
-        row = cursor.fetchall()
-        
+        id_val = req.args.get('id')
+        print(id_val)
+
+        cursor.execute(f"SELECT * FROM problems as p inner join examples as e on p.problem_id=e.problem_id and p.problem_id='{id_val}';")#fill in title
+        row = cursor.fetchall()[0]
+        print(row)
         problem_info = Problem_Info(row)
         conn.close()
 
-        return render_template("test.html", descr=problem_info)
+        return render_template("test.html", descr=problem_info,test=req.args.get("id"))
 
     #when already loaded
     if req.method == "POST":

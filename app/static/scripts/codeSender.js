@@ -11,3 +11,11 @@ function codeSend() {
     }
     });
 }
+
+function linkupdate(){
+
+    debug.Log(document.getElementByTag("*"))
+
+
+
+}
