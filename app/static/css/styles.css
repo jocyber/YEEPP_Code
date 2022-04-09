@@ -202,3 +202,21 @@ ol.gradient-list > li + li {
 #first_ele:hover {
   text-decoration: underline;
 }
+
+#leftCodeStuff {
+  float: left;
+  clear: right;
+  max-width: 100%;
+
+  margin-left: 1%;
+  font-size: 15px;
+}
+
+#example-box {
+  border-color: rgb(27, 27, 27);
+  border-width: 2cm;
+
+  background-color:rgb(219, 219, 219);
+  text-align: left;
+  background-size: 80%;
+}

@@ -9,6 +9,25 @@
 {% block body %}
 <!--Left side of the screen should contain the problem statement-->
 
+<!--left styling-->
+<div id="leftCodeStuff">
+    <p style="font-weight: bold; font-size: 20px;">{{descr.id}}. {{descr.title}}</p>
+    <p> Likes: {{descr.likes}} &emsp; Dislikes: {{descr.dislikes}}</p>
+
+    <hr style="color: rgb(78, 78, 78);">
+    <p>{{descr.description}}</p>
+    <hr style="color: rgb(78, 78, 78);">
+
+    <p>Example 1: </p>
+
+    <div id="example-box">
+        <pre>
+<span style="font-weight: bold;">Input:</span> {{descr.input}}                 
+<span style="font-weight: bold;">Output:</span> {{descr.output}}             
+        </pre>
+    </div>
+</div>
+
 <div id="right-editor">
     <!--Code for the code editor-->
 
