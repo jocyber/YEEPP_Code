@@ -1,21 +1,14 @@
 function codeSend() {
     //Access code
-    var code = document.getElementById("code").value;
+    var code = document.getElementById("editor").value;
 
     $.ajax({
     type: "POST",
     url: "/parse_code",
     contentType: 'application/json',
+    data: JSON.stringify(code),
     success: function(data){                          //May need to change this part
-        document.getElementById("code_output").value = data.Category[0]
+        document.getElementById("editor").value = data
     }
     });
-}
-
-function linkupdate(){
-
-    debug.Log(document.getElementByTag("*"))
-
-
-
 }

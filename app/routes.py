@@ -27,8 +27,8 @@ def index():
 @app.route('/parse_code',methods=['POST'])
 def parse_code():
     if request.method == "POST":
-        #Output of AJAX for me to play with
-        data = request.form
+        data = req.get_json()
+        return data
 
 
 #function for handling the users code
@@ -44,12 +44,11 @@ def testPage():
 
         cursor.execute(f"SELECT * FROM problems as p inner join examples as e on p.problem_id=e.problem_id and p.problem_id='{id_val}';")#fill in title
         #Reduces to one example
-        row = cursor.fetchall()
-        print(row)
-        problem_info_list = [Problem_Info(x) for x in row]
+        row = cursor.fetchall()[0]
+        problem_info = Problem_Info(row)
         conn.close()
 
-        return render_template("test.html", descr=problem_info_list,test=req.args.get("id"))
+        return render_template("test.html", descr=problem_info, test=req.args.get("id"))
 
     #when already loaded
     if req.method == "POST":
