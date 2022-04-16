@@ -12,7 +12,8 @@
 <!--left styling-->
 <div id="leftCodeStuff">
     <p style="font-weight: bold; font-size: 20px;">{{descr.id}}. {{descr.title}}</p>
-    <p> Likes: {{descr.likes}} &emsp; Dislikes: {{descr.dislikes}}</p>
+    <button class="txt-button" type="submit" value="{{descr.id}}" onclick="updateLike()" id="like">Likes: <p id="numLikes">{{descr.likes}}</p></button> 
+    <button class="txt-button" type="submit" value="{{descr.id}}" onclick="updateDislike()" id="dislike">&emsp;Dislikes: <p id="numdislikes">{{descr.dislikes}}</p></button>
 
     <hr style="color: rgb(78, 78, 78);">
     <p>{{descr.description}}</p>

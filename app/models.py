@@ -6,6 +6,8 @@ class Problems():
         self.title = data[4]
         self.acceptance = data[2]
         self.difficulty = data[1]
+        self.likes = data[6]
+        self.dislikes = data[7]
 
     def get_title(self):
         return self.title

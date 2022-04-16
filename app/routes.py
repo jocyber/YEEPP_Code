@@ -28,7 +28,35 @@ def index():
 def parse_code():
     if request.method == "POST":
         data = req.get_json()
+        #run the code here
         return data
+
+#update like and dislike counters
+@app.route('/update_count',methods=['POST'])
+def update_count():
+    if request.method == "POST":
+        data = req.form["data"]
+        id = req.form["id"]
+
+        conn = sql.connect("database.db")
+        cursor = conn.cursor()
+
+        if data == 'like':
+            cursor.execute(f"UPDATE problems SET likes=likes + 1 WHERE problem_id = {id};")
+            cursor.execute("Commit;")
+            cursor.execute(f"SELECT * from problems where problem_id={id};")
+            row = cursor.fetchall()[0]
+            num = str(Problems(row).likes)
+        elif data == 'dislike':
+            cursor.execute(f"UPDATE problems SET dislikes=dislikes + 1 WHERE problem_id={id};")
+            cursor.execute("Commit;")
+            cursor.execute(f"SELECT * from problems where problem_id={id};")
+            row = cursor.fetchall()[0]
+            num = str(Problems(row).dislikes)
+
+        conn.close()
+
+        return num
 
 
 #function for handling the users code
@@ -40,9 +68,8 @@ def testPage():
 
         #here add get title of problem to parse the single output
         id_val = req.args.get('id')
-        print(id_val)
 
-        cursor.execute(f"SELECT * FROM problems as p inner join examples as e on p.problem_id=e.problem_id and p.problem_id='{id_val}';")#fill in title
+        cursor.execute(f"SELECT * FROM problems as p, examples as e on p.problem_id=e.problem_id and p.problem_id='{id_val}';")#fill in title
         #Reduces to one example
         row = cursor.fetchall()[0]
         problem_info = Problem_Info(row)

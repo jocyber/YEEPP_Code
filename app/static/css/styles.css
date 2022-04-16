@@ -220,3 +220,14 @@ ol.gradient-list > li + li {
   text-align: left;
   background-size: 80%;
 }
+
+.txt-button {
+  border: none;
+  background-color: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.txt-button:hover {
+  text-decoration: underline;
+}
