@@ -7,8 +7,10 @@ function codeSend() {
         url: "/parse_code",
         contentType: 'application/json',
         data: JSON.stringify(code),
-        success: function(data){                          //May need to change this part
+        success: function(data) {                          //May need to change this part
             document.getElementById("editor").value = data
+            //for outputing the code results
+            //document.getElementById("codeOutput").innerHTML = code; code would be a return variable
         }
     });
 }

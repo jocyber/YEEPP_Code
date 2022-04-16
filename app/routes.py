@@ -43,7 +43,7 @@ def update_count():
 
         if data == 'like':
             cursor.execute(f"UPDATE problems SET likes=likes + 1 WHERE problem_id = {id};")
-            cursor.execute("Commit;")
+            cursor.execute("Commit;")#commit the transaction
             cursor.execute(f"SELECT * from problems where problem_id={id};")
             row = cursor.fetchall()[0]
             num = str(Problems(row).likes)
