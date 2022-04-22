@@ -1,11 +1,12 @@
 #class for the coding problems
 class Problems():
-
     def __init__(self,data=[0,1,2,3,4,5,112,3]):
         self.id = data[0]
         self.title = data[4]
         self.acceptance = data[2]
         self.difficulty = data[1]
+        self.likes = data[6]
+        self.dislikes = data[7]
 
     def get_title(self):
         return self.title
@@ -20,7 +21,6 @@ class Problems():
         return f"test?id={self.id}"
 
 class Problem_Info():
-
     def __init__(self,data=[1 for x in range(1,10000)]):
         self.id = data[0]
         self.title = data[4]
