@@ -39,8 +39,25 @@ CREATE TABLE IF NOT EXISTS  userproblems  (
    problem_id  int(16) NOT NULL,
    isFavorite  BIT(1),
    isComplete  BIT(1),
+   isLike INT NULL,
   FOREIGN KEY (problem_id) REFERENCES problems(problem_id)
 );
+
+:)
+
+CREATE TRIGGER likeDis AFTER UPDATE
+    ON userproblems
+    BEGIN
+        UPDATE problems
+        SET problems.likes = IIF(new.isLike==1 AND old.isLike != 1,problems.likes+1,
+            IIF(new.isLike == 0 AND old.isLike == 1, problems.likes-1,problems.likes)
+        WHERE problems.problem_id = new.problem_id;
+
+        UPDATE problems
+        SET problems.dislikes = IIF(new.isLike==0 AND old.isLike != 0, problems.dislikes+1,
+            IIF(new.isLike == 1 AND old.isLike == 0, problem.dislikes-1,problem.dislikes)
+        WHERE problems.problem_id = new.problem_id;
+    END;
 
 :)
 
