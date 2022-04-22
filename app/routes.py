@@ -42,13 +42,13 @@ def update_count():
         cursor = conn.cursor()
 
         if data == 'like':
-            cursor.execute(f"UPDATE problems SET likes=likes + 1 WHERE problem_id = {id};")
+            cursor.execute(f"UPDATE userproblems SET isLike=1 WHERE problem_id = {id};")
             cursor.execute("Commit;")#commit the transaction
             cursor.execute(f"SELECT * from problems where problem_id={id};")
             row = cursor.fetchall()[0]
             num = str(Problems(row).likes)
         elif data == 'dislike':
-            cursor.execute(f"UPDATE problems SET dislikes=dislikes + 1 WHERE problem_id={id};")
+            cursor.execute(f"UPDATE userproblems SET isLike=0 WHERE problem_id={id};")
             cursor.execute("Commit;")
             cursor.execute(f"SELECT * from problems where problem_id={id};")
             row = cursor.fetchall()[0]
