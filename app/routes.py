@@ -3,6 +3,7 @@ from flask import request
 from app import app
 from app.models import Problems, Problem_Info
 import sqlite3 as sql
+from static.backendScripts.saltingnhash import *
 
 
 #return the index.html file
@@ -84,7 +85,7 @@ def testPage():
         if req.form["action"] == "Run Code":
             #run the 'Run Code' command
             #below return is a test
-            return render_template("test.html", data=code);
+            return render_template("test.html", data=code)
         else:
             #run the 'submit' command which will modify the database
             pass
@@ -94,5 +95,27 @@ def testPage():
 @app.errorhandler(404)
 def not_found(e):
     return render_template("404.html")
+
+@app.route("/login", methods=["POST"])
+def loginUser():
+    try:
+        if req.method == "POST":
+            email = req.form["email"]
+            password = hashnsalt(req.form["password"])
+
+            conn = sql.connect("database.db")
+            cursor = conn.cursor()
+
+            cursor.execute(f"SELECT email, password FROM users WHERE email='{email}' and password='{password}';")
+            row = cursor.fetchall()[0]
+
+            if len(row) == 1:
+                conn.close()
+                return "success"
+
+            conn.close()
+            return "failure"
+    except IndexError:
+        return "failure"
 
 

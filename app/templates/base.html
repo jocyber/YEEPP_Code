@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+        
         <link rel="stylesheet" href="{{url_for('static', filename='css/normalize.css')}}">
         <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
 
@@ -15,7 +15,8 @@
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
             <!-- Bootstrap 5 CSS -->
-        <script type="text/javascript" href="{{url_for('static', filename='scripts/functions.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='scripts/codeSender.js')}}"></script>
+
 
         <title>{%block title%} {%endblock%}</title>
     </head>
@@ -50,7 +51,7 @@
                           <li>
                             <div class="row">
                               <div class="col-md-12">
-                                <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                <form class="form" role="form" method="post" action="javascript:loginUser()" accept-charset="UTF-8" id="login-nav">
                                       <div class="form-group">
                                             <label class="sr-only" for="exampleInputEmail2">Email address</label>
                                             <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
