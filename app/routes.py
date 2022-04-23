@@ -193,7 +193,7 @@ def loginUser():
             row = cursor.fetchall()[0]
 
             conn.close()
-            return render_template("index_with_login.html")
+            return render_template("index.html")
     except IndexError:
         conn.close()
         return "failure"
@@ -219,7 +219,8 @@ def signUpUser():
             cursor.execute(f"INSERT INTO users (full_name, country_code, salt, password, username, email) VALUES ('uu', 0, '{salt}', '{password}', '{username}', '{email}');")
             conn.commit()
             conn.close()
-            return render_template("index_with_login.html")
+
+            return "success"
     except IndexError:
         conn.close()
         return "failure"

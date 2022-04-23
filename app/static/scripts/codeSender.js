@@ -83,6 +83,12 @@ function signUpUser() {
             if(data === "failure") {
                 alert("Failed to sign up for some reason.");
             }
+            else if(data == "success"){
+                $.ajax({
+                    type: "GET",
+                    url: "/"
+                });
+            }
         }
     });
 }
