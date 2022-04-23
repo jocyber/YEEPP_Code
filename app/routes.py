@@ -162,6 +162,10 @@ def loginUser():
         conn.close()
         return "failure"
 
+@app.route('/signup')
+def signup():
+    return render_template("signup.html")
+
 @app.route("/signUp", methods=["POST"])
 def signUpUser():
     try:
