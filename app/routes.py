@@ -193,7 +193,7 @@ def loginUser():
             row = cursor.fetchall()[0]
 
             conn.close()
-            return render_template("index.html")
+            return "success"
     except IndexError:
         conn.close()
         return "failure"
@@ -220,6 +220,14 @@ def signUpUser():
             conn.commit()
             conn.close()
 
+            connection = sql.connect("database.db")
+
+            cursor = connection.cursor()
+            cursor.execute("SELECT * FROM problems")
+            rows = cursor.fetchall()
+            connection.close()
+
+            problems = [Problems(x) for x in rows]
             return "success"
     except IndexError:
         conn.close()

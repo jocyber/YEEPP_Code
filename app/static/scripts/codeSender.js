@@ -80,14 +80,11 @@ function signUpUser() {
         url: "/signUp",
         data: {"email": email, "password": password, "username": username},
         success: function(data) {
-            if(data === "failure") {
-                alert("Failed to sign up for some reason.");
+            if(data === "success") {
+                alert("Successfully created an account.");
             }
-            else if(data == "success"){
-                $.ajax({
-                    type: "GET",
-                    url: "/"
-                });
+            else if(data === "failure") {
+                alert("Could not create an account. Maybe it's already in use.");
             }
         }
     });
