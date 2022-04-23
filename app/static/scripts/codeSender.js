@@ -89,3 +89,8 @@ function signUpUser() {
         }
     });
 }
+
+function logout() {
+    document.cookie = 'username=; Max-Age=0';
+    location.reload();
+}

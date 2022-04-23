@@ -44,7 +44,8 @@
                 <form class="navbar-form navbar-left" role="search">
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-<!--stuff for user--><img src="#">
+<!--stuff for user--><img id="image" src="{{url_for('static', filename='images/user.png')}}">
+                    <div id="login-text"><button onclick="logout()">Logout</button></div>
                 </ul>
               </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
