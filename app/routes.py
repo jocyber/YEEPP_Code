@@ -91,26 +91,36 @@ def parse_code():
         conn = sql.connect("database.db")
         cursor = conn.cursor()
 
-        cursor.execute(f"SELECT * FROM problems WHERE problem_id = {problem}")
-        query = cursor.fetchall()[0]
-        func = query[0]
+        cursor.execute("SELECT input, output, methodHeader FROM examples WHERE problem_id = (?)",([problem]))
+        examples = cursor.fetchall()
 
-        output=run_code(source_code = code, function_name = func, input_values = input_values, output_values = output_values)
+        outputdata = []
+
+        for i in range(len(examples)):
+
+            func = examples[i][2]
+            input_values = examples[i][0]
+            output_values = examples[i][1]
 
 
-        if "not found" in output:
-            re_val = output
+            output=run_code(source_code = code, function_name = func, input_values = input_values, output_values = output_values)
 
-        elif "syntax" in output:
-            re_val = output
 
-        elif "fail" in output:
-            re_val = output
+            if "not found" in output:
+                outputdata.append(output)
+                break
 
-        elif "success" in output:
-            re_val = output
+            elif "syntax" in output:
+                outputdata.append(output)
+                break
 
-        return data
+            elif "fail" in output:
+                outputdata.append(output)
+
+            elif "success" in output:
+                outputdata.append(output)
+
+        return outdata
 
 #update like and dislike counters
 @app.route('/update_count',methods=['POST'])

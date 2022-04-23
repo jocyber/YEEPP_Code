@@ -126,17 +126,17 @@ INSERT INTO users(user_id,full_name,country_code,password,username,email) VALUES
 :)
 
 INSERT INTO examples(example_id,problem_id,input,output,description, methodHeader) VALUES
-(1,1,"Hello World","Hello World","Go Dawgs!!!", "def (input)");
+(1,1,"Hello World","Hello World","Go Dawgs!!!", "location");
 
 :)
 
 INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
-(2,2,"FIX BASED ON WHO CREATED PROBLEM","Hello World","Go Dawgs!!!","def (input)");
+(2,2,"FIX BASED ON WHO CREATED PROBLEM","Hello World","Go Dawgs!!!","location");
 
 :)
 
 INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
-(3,3,"Hello World","Hello World","Go Dawgs!!!","def topSort(input)");
+(3,3,"Hello World","Hello World","Go Dawgs!!!","location");
 
 :)
 

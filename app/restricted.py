@@ -17,7 +17,7 @@ def run_code(source_code,function_name="myFunc",input_values=[""], output_values
 
     output = {}
     code = compile_restricted(source_code,'<string>','exec')
-
+    print(source_code)
     try:
         exec(code,{'__builtins__':safe_builtins},output)
     except SyntaxError as e:
