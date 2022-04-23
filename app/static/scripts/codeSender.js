@@ -54,7 +54,7 @@ function loginUser() {
     let email = document.getElementById("exampleInputEmail2").value;
     let password = document.getElementById("exampleInputPassword2").value;
 
-    document.cookie = "username=" + username;
+    //document.cookie = "username=" + username;
  
     $.ajax({
         type: "POST",
@@ -63,6 +63,10 @@ function loginUser() {
         success: function(data) {
             if(data == "failure") {
                 alert("No user with this email and password.")
+            }
+            else{
+                document.cookie = "username=" + data;
+                location.reload();
             }
         }
     });

@@ -4,6 +4,8 @@ from app import app
 from app.models import Problems, Problem_Info
 import sqlite3 as sql
 from app.restricted import run_code
+
+import base64
 """Copied from https://nitratine.net/blog/post/how-to-hash-passwords-in-python/
 By author unlisted...
 Modified for our use"""
@@ -181,20 +183,22 @@ def loginUser():
         if req.method == "POST":
             conn = sql.connect("database.db")
             cursor = conn.cursor()
-
+            #print("what")
             email = req.form["email"]
             password = req.form["password"]
 
-            cursor.execute("SELECT salt FROM users WHERE email='{email}' and password='{password}';")
-            row = cursor.fetchall()[0]
+            cursor.execute("SELECT salt FROM users WHERE email=(?);",([email]))
+            salt = base64.urlsafe_b64decode(cursor.fetchall()[0][0])
 
-            password = hashnsalt(password, int(row))
 
-            cursor.execute(f"SELECT email, password FROM users WHERE email='{email}' and password='{password}';")
-            row = cursor.fetchall()[0]
 
+            password = base64.urlsafe_b64encode(hashnsalt(password, salt))
+
+            cursor.execute(f"SELECT username FROM users WHERE email=(?) and password=(?);",(email,password))
+            username = cursor.fetchall()[0][0]
+            #print("I'm in boys")
             conn.close()
-            return "success"
+            return username
     except IndexError:
         conn.close()
         return "failure"
@@ -214,12 +218,15 @@ def signUpUser():
             password = req.form["password"]
             username = req.form["username"]
             password, salt = hashnsalt2(password)
-            password, salt = sql.Binary(password), sql.Binary(salt)
-            print(f"INSERT INTO users (full_name, country_code, salt, password, username, email) VALUES ('uu', 0, '{salt}', '{password}', '{username}', '{email}');")
 
-            cursor.execute(f"INSERT INTO users (full_name, country_code, salt, password, username, email) VALUES ('uu', 0, '{salt}', '{password}', '{username}', '{email}');")
+            password, salt = base64.urlsafe_b64encode(password), base64.urlsafe_b64encode(salt)
+
+            #print(f"INSERT INTO users (full_name, country_code, salt, password, username, email) VALUES ('uu', 0, (?), (?), (?), (?));"
+             #     ,(salt,password,username,email))
+
+            cursor.execute(f"INSERT INTO users (full_name, country_code, salt, password, username, email) VALUES ('uu', 0, (?),(?),(?),(?) );",
+                           (salt,password,username,email))
             conn.commit()
-            conn.close()
 
             return "success"
     except IndexError:
