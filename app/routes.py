@@ -3,8 +3,50 @@ from flask import request
 from app import app
 from app.models import Problems, Problem_Info
 import sqlite3 as sql
-from static.backendScripts.saltingnhash import *
 
+"""Copied from https://nitratine.net/blog/post/how-to-hash-passwords-in-python/
+By author unlisted...
+Modified for our use"""
+
+
+import hashlib
+import os
+
+"""
+salt = os.urandom(32) # Remember this
+password = 'password123'
+"""
+
+#takes password returns hashednsalted password and salt
+def hashnsalt(password):
+
+    salt = os.urandom(32)
+
+    key = hashlib.pbkdf2_hmac(
+      'sha256', # The hash digest algorithm for HMAC
+      password.encode('utf-8'), # Convert the password to bytes
+      salt, # Provide the salt
+     100000 # It is recommended to use at least 100,000 iterations of SHA-256
+    )
+    return key,salt
+
+
+def hashnsalt(password,salt):
+
+    salt = salt
+
+    key = hashlib.pbkdf2_hmac(
+      'sha256', # The hash digest algorithm for HMAC
+      password.encode('utf-8'), # Convert the password to bytes
+      salt, # Provide the salt
+     100000 # It is recommended to use at least 100,000 iterations of SHA-256
+    )
+    return key
+
+
+#print(hashnsalt(password,salt))
+#salt = os.urandom(32)
+#print(hashnsalt(password,salt))
 
 #return the index.html file
 @app.route('/')
@@ -100,22 +142,24 @@ def not_found(e):
 def loginUser():
     try:
         if req.method == "POST":
-            email = req.form["email"]
-            password = hashnsalt(req.form["password"])
-
             conn = sql.connect("database.db")
             cursor = conn.cursor()
+
+            email = req.form["email"]
+            password = req.form["password"]
+
+            cursor.execute("SELECT salt FROM users WHERE email='{email}' and password='{password}';")
+            row = cursor.fetchall()[0]
+
+            password = hashnsalt(password, int(row))
 
             cursor.execute(f"SELECT email, password FROM users WHERE email='{email}' and password='{password}';")
             row = cursor.fetchall()[0]
 
-            if len(row) == 1:
-                conn.close()
-                return "success"
-
             conn.close()
-            return "failure"
+            return "success"
     except IndexError:
+        conn.close()
         return "failure"
 
 

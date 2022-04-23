@@ -25,7 +25,9 @@ CREATE TABLE IF NOT EXISTS examples  (
 
 CREATE TABLE IF NOT EXISTS  users  (
    user_id  INT AUTO_INCREMENT PRIMARY KEY,
-   country_code  int(16) NOT NULL,
+   full_name  VARCHAR(32) NOT NULL,
+   country_code INT(16) NOT NULL,
+   salt INT(32),
    password  VARCHAR(25) NOT NULL,
    username  VARCHAR(25) NOT NULL,
    email  VARCHAR(32) NOT NULL
