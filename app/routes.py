@@ -166,7 +166,8 @@ def testPage():
         problem_info = Problem_Info(row)
         conn.close()
 
-        return render_template("test.html", descr=problem_info, test=req.args.get("id"))
+        new_page = page_with_cookie("test")
+        return render_template(new_page, descr=problem_info, test=req.args.get("id"))
 
     #when already loaded
     if req.method == "POST":
@@ -237,12 +238,6 @@ def signUpUser():
                            (salt,password,username,email))
             conn.commit()
 
-
-            cursor.execute("SELECT * FROM problems")
-            rows = cursor.fetchall()
-            conn.close()
-
-            problems = [Problems(x) for x in rows]
             return "success"
     except IndexError:
         conn.close()

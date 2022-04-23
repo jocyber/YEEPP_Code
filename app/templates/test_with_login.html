@@ -1,0 +1,48 @@
+{% extends "base_with_login.html" %}
+
+{% block title %} Test for code editing {% endblock %}
+{% block header %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{url_for('static', filename='scripts/codeSender.js')}}"></script>
+{% endblock %}
+
+{% block body %}
+<!--Left side of the screen should contain the problem statement-->
+
+<!--left styling-->
+<div id="leftCodeStuff">
+    <p style="font-weight: bold; font-size: 20px;">{{descr.id}}. {{descr.title}}</p>
+    <button class="txt-button" type="submit" value="{{descr.id}}" onclick="updateLike()" id="like">Likes: <p id="numLikes">{{descr.likes}}</p></button> 
+    <button class="txt-button" type="submit" value="{{descr.id}}" onclick="updateDislike()" id="dislike">&emsp;Dislikes: <p id="numdislikes">{{descr.dislikes}}</p></button>
+
+    <hr style="color: rgb(78, 78, 78);">
+    <p>{{descr.description}}</p>
+    <hr style="color: rgb(78, 78, 78);">
+
+    <p>Example 1: </p>
+
+    <div id="example-box">
+        <pre>
+<span style="font-weight: bold;">Input:</span> {{descr.input}}                 
+<span style="font-weight: bold;">Output:</span> {{descr.output}}             
+        </pre>
+    </div>
+
+    <br><br>
+    <p>Output: </p>
+    <div id="example-box">
+        <pre>
+<span style="font-weight: bold;">Output:</span><span id="codeOutput"></span>
+        </pre>
+    </div>
+</div>
+
+<div id="right-editor">
+    <!--Code for the code editor-->
+
+    <textarea id="editor" style="resize: none;" name="codeEdit" rows="30"></textarea>
+    <input id="run" type="submit" onclick="codeSend()" name="action" value="Run Code" style="margin-right: 20px;">
+    <input id="sub" type="submit" name="action" value="Submit">
+</div>
+
+{% endblock %}
