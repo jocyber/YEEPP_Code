@@ -3,7 +3,7 @@ from flask import request
 from app import app
 from app.models import Problems, Problem_Info
 import sqlite3 as sql
-
+from app.restricted import run_code
 """Copied from https://nitratine.net/blog/post/how-to-hash-passwords-in-python/
 By author unlisted...
 Modified for our use"""
@@ -71,7 +71,32 @@ def index():
 def parse_code():
     if request.method == "POST":
         data = req.get_json()
-        #run the code here
+        code = data["code"]
+        problem = data["problem"].split("?")[1]
+
+        #sqlite query to get function name input values and output values from problem
+        conn = sql.connect("database.db")
+        cursor = conn.cursor()
+
+        cursor.execute(f"SELECT * FROM problems WHERE problem_id = {problem}")
+        query = cursor.fetchall()[0]
+        func = query[0]
+
+        output=run_code(source_code = code, function_name = func, input_values = input_values, output_values = output_values)
+
+
+        if "not found" in output:
+            re_val = output
+
+        elif "syntax" in output:
+            re_val = output
+
+        elif "fail" in output:
+            re_val = output
+
+        elif "success" in output:
+            re_val = output
+
         return data
 
 #update like and dislike counters
