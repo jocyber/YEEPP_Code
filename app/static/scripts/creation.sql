@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS problems (
-    problem_id INT AUTO_INCREMENT PRIMARY KEY,
+    problem_id INTEGER PRIMARY KEY AUTOINCREMENT ,
     difficulty  VARCHAR(10) NOT NULL,
     attempted int(16) NOT NULL,
     solved int(16) NOT NULL,
@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS problems (
 :)
 
 CREATE TABLE IF NOT EXISTS examples  (
-   example_id  INT AUTO_INCREMENT PRIMARY KEY,
-   problem_id  int(16) NOT NULL,
+   example_id  INTEGER  PRIMARY KEY AUTOINCREMENT,
+   problem_id  INTEGER NOT NULL,
    input  VARCHAR(2000) NOT NULL,
    output  VARCHAR(2000) NOT NULL,
    description  VARCHAR(2000) NOT NULL,
@@ -24,10 +24,10 @@ CREATE TABLE IF NOT EXISTS examples  (
 :)
 
 CREATE TABLE IF NOT EXISTS  users  (
-   user_id  INT AUTO_INCREMENT PRIMARY KEY,
+   user_id  INTEGER  PRIMARY KEY AUTOINCREMENT,
    full_name  VARCHAR(32) NOT NULL,
    country_code INT(16) NOT NULL,
-   salt INT(32),
+   salt  VARCHAR(32),
    password  VARCHAR(40) NOT NULL,
    username  VARCHAR(25) NOT NULL,
    email  VARCHAR(32) NOT NULL
@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS  users  (
 :)
 
 CREATE TABLE IF NOT EXISTS  userproblems  (
-   user_id  int(16) NOT NULL,
-   problem_id  int(16) NOT NULL,
+   user_id  INTEGER NOT NULL,
+   problem_id  INTEGER NOT NULL,
    isFavorite  BIT(1),
    isComplete  BIT(1),
    isLike INT NULL,

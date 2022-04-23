@@ -176,10 +176,12 @@ def signUpUser():
             email = req.form["email"]
             password = req.form["password"]
             username = req.form["username"]
-            salt = hashnsalt2(password)
+            password, salt = hashnsalt2(password)
+            password, salt = sql.Binary(password), sql.Binary(salt)
+            print(f"INSERT INTO users (full_name, country_code, salt, password, username, email) VALUES ('uu', 0, '{salt}', '{password}', '{username}', '{email}');")
 
-            cursor.execute(f"INSERT INTO users (full_name, country_code, salt, password, username, email) VALUES ('uu', 0, {salt}, '{password}', '{username}', '{email}');")
-
+            cursor.execute(f"INSERT INTO users (full_name, country_code, salt, password, username, email) VALUES ('uu', 0, '{salt}', '{password}', '{username}', '{email}');")
+            conn.commit()
             conn.close()
             return "success"
     except IndexError:
