@@ -41,21 +41,27 @@ function updateDislike() {
     });
 }
 
+function isCookie() {
+    let cook = document.cookie.split("=");
+
+    if(cook[1] != "")//if username is set
+        return true;
+
+    return false;
+}
+
 function loginUser() {
     let email = document.getElementById("exampleInputEmail2").value;
     let password = document.getElementById("exampleInputPassword2").value;
+
+    document.cookie = "username=" + username;
  
     $.ajax({
         type: "POST",
         url: "/login",
         data: {"email": email, "password": password},
         success: function(data) {
-            if(data === "success") {
-                console.log("YESS");
-                ;//set cookie, then reload page
-            }
-            else {
-                console.log("NOOO");
+            if(data == "failure") {
                 alert("No user with this email and password.")
             }
         }
@@ -67,21 +73,15 @@ function signUpUser() {
     let password = document.getElementById("passwordExample").value;
     let username = document.getElementById("usernameExample").value;
 
-    console.log(email);
+    document.cookie = "username=" + username;//set cookie, then reload page
 
     $.ajax({
         type: "POST",
         url: "/signUp",
         data: {"email": email, "password": password, "username": username},
         success: function(data) {
-            if(data === "success") {
-                console.log("YESS");
-                alert("SUCCESS!");
-                ;//set cookie, then reload page
-            }
-            else {
-                console.log("NOOO");
-                alert("No user with this email and password.")
+            if(data === "failure") {
+                alert("Failed to sign up for some reason.");
             }
         }
     });

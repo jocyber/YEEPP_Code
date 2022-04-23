@@ -48,6 +48,16 @@ def hashnsalt(password,salt):
 #salt = os.urandom(32)
 #print(hashnsalt(password,salt))
 
+def page_with_cookie(page):#file
+    username = request.cookies.get('username')
+
+    print(username)
+
+    if(username != None):#if cookie exists
+        page = page + "_with_login"
+
+    return page + ".html"      
+
 #return the index.html file
 @app.route('/')
 def index():
@@ -62,7 +72,8 @@ def index():
 
     problems = [Problems(x) for x in rows]
 
-    return render_template("index.html", data=problems) #values=cursor)
+    new_page = page_with_cookie("index")
+    return render_template(new_page, data=problems) #values=cursor)
 
 
 #Here is the ajax code should you need it
@@ -157,7 +168,7 @@ def loginUser():
             row = cursor.fetchall()[0]
 
             conn.close()
-            return "success"
+            return render_template("index_with_login.html")
     except IndexError:
         conn.close()
         return "failure"
@@ -181,9 +192,11 @@ def signUpUser():
             cursor.execute(f"INSERT INTO users (full_name, country_code, salt, password, username, email) VALUES ('uu', 0, {salt}, '{password}', '{username}', '{email}');")
 
             conn.close()
-            return "success"
+            return render_template("index_with_login.html")
     except IndexError:
         conn.close()
         return "failure"
+
+
 
 

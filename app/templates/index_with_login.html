@@ -1,0 +1,15 @@
+{% extends "base_with_footer_with_login.html" %}
+{% block title %} Flask web application {% endblock%}
+
+{% block header %}  {%endblock%}
+{% block body %} 
+
+        {% for val in data%}
+            <div>
+                <ol class="gradient-list" style="text-align: left;">
+                    <li><a href="{{val.get_id_path()}}" id="whoknows">{{val.get_title()}}</a>  <div class="space">Acceptance: {{val.get_acceptance()}}%</div> <div class="space">Difficulty: {{val.get_difficulty()}}</div></li>
+                </ol>
+            </div>
+            
+        {%endfor%}   
+{% endblock %}
