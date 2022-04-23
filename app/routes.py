@@ -18,7 +18,7 @@ password = 'password123'
 """
 
 #takes password returns hashednsalted password and salt
-def hashnsalt(password):
+def hashnsalt2(password):
 
     salt = os.urandom(32)
 
@@ -176,12 +176,9 @@ def signUpUser():
             email = req.form["email"]
             password = req.form["password"]
             username = req.form["username"]
+            salt = hashnsalt2(password)
 
-            cursor.execute("SELECT salt FROM users WHERE email='{email}' and password='{password}';")
-            row = cursor.fetchall()[0]
-
-            password = hashnsalt(password)
-            cursor.execute(f"INSERT INTO users (full_name, country_code, salt, password, username, email) VALUES ('', 0, {password}, {password}, {username}, {email});")
+            cursor.execute(f"INSERT INTO users (full_name, country_code, salt, password, username, email) VALUES ('uu', 0, {salt}, '{password}', '{username}', '{email}');")
 
             conn.close()
             return "success"

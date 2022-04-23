@@ -63,9 +63,11 @@ function loginUser() {
 }
 
 function signUpUser() {
-    let email = document.getElementById("exampleInputEmail2").value;
-    let password = document.getElementById("exampleInputPassword2").value;
+    let email = document.getElementById("emailExample").value;
+    let password = document.getElementById("passwordExample").value;
     let username = document.getElementById("usernameExample").value;
+
+    console.log(email);
 
     $.ajax({
         type: "POST",
@@ -74,6 +76,7 @@ function signUpUser() {
         success: function(data) {
             if(data === "success") {
                 console.log("YESS");
+                alert("SUCCESS!");
                 ;//set cookie, then reload page
             }
             else {

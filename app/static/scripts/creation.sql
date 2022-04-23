@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS  users  (
    full_name  VARCHAR(32) NOT NULL,
    country_code INT(16) NOT NULL,
    salt INT(32),
-   password  VARCHAR(25) NOT NULL,
+   password  VARCHAR(40) NOT NULL,
    username  VARCHAR(25) NOT NULL,
    email  VARCHAR(32) NOT NULL
 );
