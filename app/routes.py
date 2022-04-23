@@ -162,4 +162,27 @@ def loginUser():
         conn.close()
         return "failure"
 
+@app.route("/signUp", methods=["POST"])
+def signUpUser():
+    try:
+        if req.method == "POST":
+            conn = sql.connect("database.db")
+            cursor = conn.cursor()
+
+            email = req.form["email"]
+            password = req.form["password"]
+            username = req.form["username"]
+
+            cursor.execute("SELECT salt FROM users WHERE email='{email}' and password='{password}';")
+            row = cursor.fetchall()[0]
+
+            password = hashnsalt(password)
+            cursor.execute(f"INSERT INTO users (full_name, country_code, salt, password, username, email) VALUES ('', 0, {password}, {password}, {username}, {email});")
+
+            conn.close()
+            return "success"
+    except IndexError:
+        conn.close()
+        return "failure"
+
 

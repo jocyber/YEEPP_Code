@@ -45,7 +45,6 @@ function loginUser() {
     let email = document.getElementById("exampleInputEmail2").value;
     let password = document.getElementById("exampleInputPassword2").value;
  
-    //check with regular expressions, dummy
     $.ajax({
         type: "POST",
         url: "/login",
@@ -53,7 +52,29 @@ function loginUser() {
         success: function(data) {
             if(data === "success") {
                 console.log("YESS");
-                ;//set cookie then reload page
+                ;//set cookie, then reload page
+            }
+            else {
+                console.log("NOOO");
+                alert("No user with this email and password.")
+            }
+        }
+    });
+}
+
+function signUpUser() {
+    let email = document.getElementById("exampleInputEmail2").value;
+    let password = document.getElementById("exampleInputPassword2").value;
+    let username = document.getElementById("usernameExample").value;
+
+    $.ajax({
+        type: "POST",
+        url: "/signUp",
+        data: {"email": email, "password": password, "username": username},
+        success: function(data) {
+            if(data === "success") {
+                console.log("YESS");
+                ;//set cookie, then reload page
             }
             else {
                 console.log("NOOO");
