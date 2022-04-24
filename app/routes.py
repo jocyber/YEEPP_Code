@@ -84,20 +84,22 @@ def index():
 def parse_code():
     if request.method == "POST":
         data = req.get_json()
+        print("got data")
         code = data["code"]
-        problem = data["problem"].split("?")[1]
+        problem = data["problem"].split("?id=")[1]
 
         #sqlite query to get function name input values and output values from problem
         conn = sql.connect("database.db")
         cursor = conn.cursor()
-
+        print(problem)
         cursor.execute("SELECT input, output, methodHeader FROM examples WHERE problem_id = (?)",([problem]))
         examples = cursor.fetchall()
-
+        print("hi")
+        print(examples)
         outputdata = []
 
         for i in range(len(examples)):
-
+            print(i)
             func = examples[i][2]
             input_values = examples[i][0]
             output_values = examples[i][1]
@@ -120,7 +122,8 @@ def parse_code():
             elif "success" in output:
                 outputdata.append(output)
 
-        return outdata
+        print(outputdata," hi")
+        return outputdata[0]
 
 #update like and dislike counters
 @app.route('/update_count',methods=['POST'])
@@ -163,6 +166,8 @@ def testPage():
         cursor.execute(f"SELECT * FROM problems as p, examples as e on p.problem_id=e.problem_id and p.problem_id='{id_val}';")#fill in title
         #Reduces to one example
         row = cursor.fetchall()[0]
+        print(row)
+        print(row[-1])
         problem_info = Problem_Info(row)
         conn.close()
 

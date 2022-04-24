@@ -29,3 +29,4 @@ class Problem_Info():
         self.dislikes = data[7]
         self.input = data[10]
         self.output = data[11]
+        self.methodHeader = data[-1]

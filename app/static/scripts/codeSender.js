@@ -5,8 +5,8 @@ function codeSend() {
     $.ajax({
         type: "POST",
         url: "/parse_code",
-        contentType: 'application/json',
-        data: {"code":JSON.stringify(code),"problem":window.location.href},
+        contentType: "application/json;",
+        data: JSON.stringify({"code":code,"problem":window.location.href}),
         success: function(data) {                          //May need to change this part
             document.getElementById("editor").value = data
             //for outputing the code results

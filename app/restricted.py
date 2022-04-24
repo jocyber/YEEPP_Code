@@ -26,7 +26,7 @@ def run_code(source_code,function_name="myFunc",input_values=[""], output_values
         return "syntax error"
     try:
         if len(input_values) > 0:
-            out = output[function_name](*input_values)
+            out = output[function_name](input_values)
         else: out = output[function_name]()
 
         if out == output_values:
