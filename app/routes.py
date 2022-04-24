@@ -1,9 +1,10 @@
-from flask import render_template, url_for, request as req, redirect as redi
+from flask import make_response, render_template, url_for, request as req, redirect as redi
 from flask import request
 from app import app
-from app.models import Problems, Problem_Info
+from app.models import Problems, Problem_Info, User
 import sqlite3 as sql
 from app.restricted import run_code
+from werkzeug.utils import secure_filename
 
 import base64
 """Copied from https://nitratine.net/blog/post/how-to-hash-passwords-in-python/
@@ -18,6 +19,8 @@ import os
 salt = os.urandom(32) # Remember this
 password = 'password123'
 """
+
+file_types = set(["jpg", "png", "jpeg"])
 
 #takes password returns hashednsalted password and salt
 def hashnsalt2(password):
@@ -58,7 +61,16 @@ def page_with_cookie(page):#file
     if(username != None):#if cookie exists
         page = page + "_with_login"
 
-    return page + ".html"      
+    return page + ".html"   
+
+def get_upload():
+    profile_pic = req.cookies.get("profile_pic")
+    print(profile_pic)
+    
+    if profile_pic is not None:
+        return profile_pic
+
+    return "user.png"
 
 #return the index.html file
 @app.route('/')
@@ -75,8 +87,46 @@ def index():
     problems = [Problems(x) for x in rows]
 
     new_page = page_with_cookie("index")
-    return render_template(new_page, data=problems) #values=cursor)
+    file = get_upload()
+    return render_template(new_page, data=problems, image=url_for('static', filename=f'/images/{file}'))
 
+@app.route('/upload', methods=["POST"])
+def upload():
+    username = req.cookies.get("username")
+    conn = sql.connect("database.db")
+    cursor = conn.cursor()  
+    cursor.execute(f"SELECT * FROM users WHERE username='{username}';")
+    row = cursor.fetchall()[0]
+
+    user = User(row)
+    conn.close()
+
+    #file upload
+    file = req.files['file']
+
+    filename = secure_filename(file.filename)
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+    resp = make_response(render_template("profile.html", data=user, image=url_for('static', filename=f'images/{filename}')))
+    resp.set_cookie('profile_pic', filename)
+    return resp
+
+#for user profile
+@app.route('/profile')
+def profile():
+    username = req.cookies.get("username")
+
+    conn = sql.connect("database.db")
+    cursor = conn.cursor()  
+    cursor.execute(f"SELECT * FROM users WHERE username='{username}';")
+    row = cursor.fetchall()[0]
+
+    user = User(row)
+    conn.close()
+
+    file = get_upload()
+    return render_template("profile.html", data=user, image=url_for('static', filename=f'/images/{file}'))
+    
 
 #Here is the ajax code should you need it
 #This is a mockup for using it when the code is to be run
@@ -84,7 +134,6 @@ def index():
 def parse_code():
     if request.method == "POST":
         data = req.get_json()
-        print("got data")
         code = data["code"]
         problem = data["problem"].split("?id=")[1]
 
@@ -94,7 +143,6 @@ def parse_code():
         print(problem)
         cursor.execute("SELECT input, output, methodHeader FROM examples WHERE problem_id = (?)",([problem]))
         examples = cursor.fetchall()
-        print("hi")
         print(examples)
         outputdata = []
 
@@ -172,7 +220,8 @@ def testPage():
         conn.close()
 
         new_page = page_with_cookie("test")
-        return render_template(new_page, descr=problem_info, test=req.args.get("id"))
+        file = get_upload()
+        return render_template(new_page, descr=problem_info, test=req.args.get("id"), image=url_for('static', filename=f'/images/{file}'))
 
     #when already loaded
     if req.method == "POST":

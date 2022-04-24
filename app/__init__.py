@@ -1,8 +1,11 @@
 import sqlite3 as sql
 from os.path import exists
-from flask import Flask
+from flask import Flask, url_for
+
+UPLOAD_FOLDER = 'app/static/images'
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 from app import routes
 
