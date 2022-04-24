@@ -8,7 +8,7 @@ function codeSend() {
         contentType: "application/json;",
         data: JSON.stringify({"code":code,"problem":window.location.href}),
         success: function(data) {                          //May need to change this part
-            document.getElementById("editor").value = data
+            document.getElementById("codeOutput").innerHTML = data
             //for outputing the code results
             //document.getElementById("codeOutput").innerHTML = code; code would be a return variable
         }
