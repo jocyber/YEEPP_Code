@@ -61,15 +61,15 @@ def page_with_cookie(page):#file
     if(username != None):#if cookie exists
         page = page + "_with_login"
 
-    return page + ".html"   
+    return page + ".html"
 
 def get_upload():
     profile_pic = req.cookies.get("profile_pic")
     print(profile_pic)
     
     if profile_pic is not None:
+        #print(profile_pic)
         return profile_pic
-
     return "user.png"
 
 #return the index.html file
@@ -88,7 +88,7 @@ def index():
 
     new_page = page_with_cookie("index")
     file = get_upload()
-    return render_template(new_page, data=problems, image=url_for('static', filename=f'/images/{file}'))
+    return render_template(new_page, data=problems, image=url_for('static', filename=f'images/{file}'))
 
 @app.route('/upload', methods=["POST"])
 def upload():
