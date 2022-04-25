@@ -46,22 +46,40 @@ CREATE TABLE IF NOT EXISTS  userproblems  (
 
 :)
 
--- CREATE TRIGGER likeDis AFTER UPDATE
---     ON userproblems
---     BEGIN
---         UPDATE problems
---         SET problems.likes = IIF(new.isLike==1 AND old.isLike != 1,problems.likes+1,
---             IIF(new.isLike == 0 AND old.isLike == 1, problems.likes-1,problems.likes)
---         WHERE problems.problem_id = new.problem_id;
+CREATE TRIGGER increment_new_like AFTER UPDATE OF isLike ON userproblems
 
---         UPDATE problems
---         SET problems.dislikes = IIF(new.isLike==0 AND old.isLike != 0, problems.dislikes+1,
---             IIF(new.isLike == 1 AND old.isLike == 0, problem.dislikes-1,problem.dislikes)
---         WHERE problems.problem_id = new.problem_id;
---     END;
+WHEN old.isLike = NULL AND new.isLike = 1
+BEGIN
+UPDATE problems SET likes = likes + 1 WHERE old.problem_id = problems.problem_id;
+END;
 
--- :)
+:)
 
+CREATE TRIGGER increment_old_like AFTER UPDATE OF isLike ON userproblems
+WHEN old.isLike = 0 AND new.isLike = 1
+BEGIN
+UPDATE problems SET likes = likes + 1 WHERE old.problem_id = problems.problem_id;
+UPDATE problems SET dislikes = dislikes -1 WHERE old.problem_id = problems.problem_id;
+END;
+
+:)
+
+CREATE TRIGGER increment_new_dislike AFTER UPDATE OF isLike ON userproblems
+WHEN old.isLike = NULL AND new.isLike = 0
+BEGIN
+UPDATE problems SET dislikes = dislikes + 1 WHERE old.problem_id = problems.problem_id;
+END;
+
+:)
+
+CREATE TRIGGER increment_old_dislike AFTER UPDATE OF isLike ON userproblems
+WHEN old.isLike = 1 AND new.isLike = 0
+BEGIN
+UPDATE problems SET dislikes = dislikes + 1 WHERE old.problem_id = problems.problem_id;
+UPDATE problems SET likes = likes -1 WHERE old.problem_id = problems.problem_id;
+END;
+
+:)
 
 INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
 (1,"easy",0,0,"Worth half semester grade","Given a professor name as a String return true as a string if a question is \'worth half the semester grade\' and false as a string otherwise.
