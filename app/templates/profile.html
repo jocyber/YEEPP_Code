@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css%22%3E">
+<script type="text/javascript" src="{{url_for('static', filename='scripts/codeSender.js')}}"></script>
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+</style>
+</head>
+<body>
+
+<h2 style="text-align:center">{{data.username}}</h2>
+
+<div class="card">
+  <img src="{{image}}" style="width:100%">
+  <div style="margin: 24px 0;">
+    <a href="#"><i class="fa fa-dribbble"></i></a> 
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+    <a href="#"><i class="fa fa-facebook"></i></a> 
+  </div>
+  <form method="post" action="{{url_for('upload')}}" enctype="multipart/form-data">
+    <div style="float:left;"><input type="file" value="Upload" name="file"></div>
+    <div style="float:left;"><input type="submit"></div>
+    </form>
+  <p><button>{{data.email}}</button></p>
+  <p><button onclick="logout()">Logout</button></p>
+</div>
+
+<h2 style="text-align: center;"><a href="{{url_for('index')}}">Home</a></h2>
+
+</body>
+</html>

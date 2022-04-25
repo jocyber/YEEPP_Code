@@ -29,3 +29,11 @@ class Problem_Info():
         self.dislikes = data[7]
         self.input = data[10]
         self.output = data[11]
+        self.methodHeader = data[-1]
+
+class User():
+    def __init__(self,data=[1 for x in range(1,10000)]):
+        self.user_id = data[0]
+        self.full_name = data[1]
+        self.username = data[5]
+        self.email = data[6]

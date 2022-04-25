@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS problems (
-    problem_id INT AUTO_INCREMENT PRIMARY KEY,
+    problem_id INTEGER PRIMARY KEY AUTOINCREMENT ,
     difficulty  VARCHAR(10) NOT NULL,
     attempted int(16) NOT NULL,
     solved int(16) NOT NULL,
@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS problems (
 :)
 
 CREATE TABLE IF NOT EXISTS examples  (
-   example_id  INT AUTO_INCREMENT PRIMARY KEY,
-   problem_id  int(16) NOT NULL,
+   example_id  INTEGER  PRIMARY KEY AUTOINCREMENT,
+   problem_id  INTEGER NOT NULL,
    input  VARCHAR(2000) NOT NULL,
    output  VARCHAR(2000) NOT NULL,
    description  VARCHAR(2000) NOT NULL,
@@ -24,10 +24,11 @@ CREATE TABLE IF NOT EXISTS examples  (
 :)
 
 CREATE TABLE IF NOT EXISTS  users  (
-   user_id  INT AUTO_INCREMENT PRIMARY KEY,
+   user_id  INTEGER  PRIMARY KEY AUTOINCREMENT,
    full_name  VARCHAR(32) NOT NULL,
-   country_code  int(16) NOT NULL,
-   password  VARCHAR(25) NOT NULL,
+   country_code INT(16) NOT NULL,
+   salt  VARCHAR(32),
+   password  VARCHAR(40) NOT NULL,
    username  VARCHAR(25) NOT NULL,
    email  VARCHAR(32) NOT NULL
 );
@@ -35,8 +36,8 @@ CREATE TABLE IF NOT EXISTS  users  (
 :)
 
 CREATE TABLE IF NOT EXISTS  userproblems  (
-   user_id  int(16) NOT NULL,
-   problem_id  int(16) NOT NULL,
+   user_id  INTEGER NOT NULL,
+   problem_id  INTEGER NOT NULL,
    isFavorite  BIT(1),
    isComplete  BIT(1),
    isLike INT NULL,
@@ -45,6 +46,24 @@ CREATE TABLE IF NOT EXISTS  userproblems  (
 
 :)
 
+<<<<<<< HEAD
+=======
+-- CREATE TRIGGER likeDis AFTER UPDATE
+--     ON userproblems
+--     BEGIN
+--         UPDATE problems
+--         SET problems.likes = IIF(new.isLike==1 AND old.isLike != 1,problems.likes+1,
+--             IIF(new.isLike == 0 AND old.isLike == 1, problems.likes-1,problems.likes)
+--         WHERE problems.problem_id = new.problem_id;
+
+--         UPDATE problems
+--         SET problems.dislikes = IIF(new.isLike==0 AND old.isLike != 0, problems.dislikes+1,
+--             IIF(new.isLike == 1 AND old.isLike == 0, problem.dislikes-1,problem.dislikes)
+--         WHERE problems.problem_id = new.problem_id;
+--     END;
+
+-- :)
+>>>>>>> 7f819d04e8ba81fff41cfc337253507a5c5bf6f8
 INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
 (1,"easy",0,0,"bababoe","cringe",0,0);
 
@@ -110,17 +129,17 @@ INSERT INTO users(user_id,full_name,country_code,password,username,email) VALUES
 :)
 
 INSERT INTO examples(example_id,problem_id,input,output,description, methodHeader) VALUES
-(1,1,"Hello World","Hello World","Go Dawgs!!!", "def (input)");
+(1,1,"Hello World","Hello World","Go Dawgs!!!", "location");
 
 :)
 
 INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
-(2,2,"FIX BASED ON WHO CREATED PROBLEM","Hello World","Go Dawgs!!!","def (input)");
+(2,2,"FIX BASED ON WHO CREATED PROBLEM","Hello World","Go Dawgs!!!","location");
 
 :)
 
 INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
-(3,3,"Hello World","Hello World","Go Dawgs!!!","def topSort(input)");
+(3,3,"Hello World","Hello World","Go Dawgs!!!","location");
 
 :)
 
