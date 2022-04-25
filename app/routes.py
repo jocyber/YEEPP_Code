@@ -140,11 +140,33 @@ def parse_code():
         #sqlite query to get function name input values and output values from problem
         conn = sql.connect("database.db")
         cursor = conn.cursor()
-        print(problem)
+
+        #print(problem)
+
         cursor.execute("SELECT input, output, methodHeader FROM examples WHERE problem_id = (?)",([problem]))
         examples = cursor.fetchall()
-        print(examples)
+
         outputdata = []
+
+        try:
+            username = request.cookies.get('username')
+            #cursor.close()
+            cursor.execute("SELECT user_id FROM users WHERE username = (?)",([username]))
+            user_id = cursor.fetchall()[0][0]
+
+            if not os.path.exists(f"user_data/{username}"): os.makedirs(f"user_data/{username}")
+
+            with open(f"user_data/{username}/{problem}.py","w+") as fp:
+                fp.write(code)
+
+            cursor.execute("SELECT * FROM userproblems WHERE user_id = (?) AND problem_id = (?)")
+            if len(cursor.fetchall()) <1:
+                cursor.execute("INSERT INTO userproblems(user_id,problem_id,isFavorite,isComplete) VALUES( (?), (?), 0, 0);",(user_id,problem))
+
+            #TODO implement update existing userproblem
+        except:
+            pass
+
 
         for i in range(len(examples)):
             print(i)
@@ -171,6 +193,13 @@ def parse_code():
                 outputdata.append(output)
 
         print(outputdata," hi")
+
+
+
+
+
+
+
         return outputdata[0]
 
 #update like and dislike counters
@@ -217,11 +246,29 @@ def testPage():
         print(row)
         print(row[-1])
         problem_info = Problem_Info(row)
+
+        try:
+            print("trying ")
+            username = req.cookies.get("username")
+
+            if username is None:
+                code = ""
+            elif os.path.exists(f"user_data/{username}/{id_val}.py"):
+                with open(f"user_data/{username}/{id_val}.py","r") as fp:
+                    code = fp.read()
+                    print("I got thereeed")
+            else:
+                code = ""
+        except:
+            code = ""
+
         conn.close()
 
         new_page = page_with_cookie("test")
+
         file = get_upload()
-        return render_template(new_page, descr=problem_info, test=req.args.get("id"), image=url_for('static', filename=f'/images/{file}'))
+        return render_template(new_page, descr=problem_info, code = code ,test=req.args.get("id"), image=url_for('static', filename=f'/images/{file}'))
+
 
     #when already loaded
     if req.method == "POST":
