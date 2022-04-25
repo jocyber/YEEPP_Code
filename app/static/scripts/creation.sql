@@ -46,51 +46,54 @@ CREATE TABLE IF NOT EXISTS  userproblems  (
 
 :)
 
-INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
-(1,"easy",0,0,"bababoe","cringe",0,0);
+-- CREATE TRIGGER likeDis AFTER UPDATE
+--     ON userproblems
+--     BEGIN
+--         UPDATE problems
+--         SET problems.likes = IIF(new.isLike==1 AND old.isLike != 1,problems.likes+1,
+--             IIF(new.isLike == 0 AND old.isLike == 1, problems.likes-1,problems.likes)
+--         WHERE problems.problem_id = new.problem_id;
 
-:)
+--         UPDATE problems
+--         SET problems.dislikes = IIF(new.isLike==0 AND old.isLike != 0, problems.dislikes+1,
+--             IIF(new.isLike == 1 AND old.isLike == 0, problem.dislikes-1,problem.dislikes)
+--         WHERE problems.problem_id = new.problem_id;
+--     END;
 
-INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
-(2,"medium",0,0,"01Knapsack","dynamic programming stuffz",0,0);
+-- :)
 
-:)
-
-INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
-(3,"medium",0,0,"topological sort","graph theory all the way",0,0);
-
-:)
-
-INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
-(4,"easy",0,0,"Worth half semester grade","Given a professor and a question return true if a question is worth half the semester grade and false otherwise. A question is worth half a semester grade if professor is equal to ‘Dr.Mario’",0,0);
-
-:)
 
 INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
-(5,"easy",0,0,"Python lover","Given an array of Strings return string Python is my love if Python is found in the array and :( otherwise
+(1,"easy",0,0,"Worth half semester grade","Given a professor name as a String return true as a string if a question is \'worth half the semester grade\' and false as a string otherwise.
+ * A question is worth half a semester grade if  the professor is equal to \'Dr.Mario\' (case sensitive)
 ",0,0);
 
 :)
 
 INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
-(6,"easy",0,0,"Will the flight land","Given a pilot and a destination return true if the plane will land and false otherwise.  Plane will Land if it is flown by Daniel or if the destination is Galapagos Islands and false otherwise. However If plane is flown by Daniel'' and the destination is Galapagos Islands the plane will not land.
+(2,"easy",0,0,"Python lover","Given a string return the string \'Python is my love\' if the string \'Python\' (case insensitive) can be parsed from the input string and \':(\' otherwise
 ",0,0);
 
 :)
 
 INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
-(7,"easy",0,0,"Funny Jokes","Given a joke, return LOL if it is funny and Do better otherwise. A joke is funny if it contains the phrase Knock Knock or Your Mom",0,0);
+(3,"easy",0,0,"Will the flight land","Given a pilot as a string, return true as a string if the \'plane will land\' and false as a string otherwise.  *Plane will Land if it is flown by \'Daniel\'.",0,0);
 
 :)
 
 INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
-(8,"easy",0,0,"Boring math","Given an Array of integers, subtract the average of all the integers from each integer in the array and then sort from least to greatest and then return the array.",0,0);
+(4,"easy",0,0,"Funny Jokes","Given a joke as a string, return \'LOL\' if it \'is funny and \'Do better\' otherwise. *A joke is funny if it contains the phrase \'Knock Knock\'(case insensitive) or \'Your Mom\' (case insensitive)",0,0);
 
 :)
 
 INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
-(9,"easy",0,0,"Sum is odd or even","
-Given an integer return true if the sum of the digits is even and false if odd.
+(5,"easy",0,0,"Boring math","Given an integer as a string, subtract the number of digits from the given integer and return the new number as a string",0,0);
+
+:)
+
+INSERT INTO problems(problem_id,difficulty,attempted,solved,title,description,likes,dislikes) VALUES
+(6,"easy",0,0,"Sum is odd or even","
+Given an integer as a string return \'even\' as a string if the sum of the digits is even and \'odd\' as as string if odd.
 ",0,0);
 
 :)
@@ -110,18 +113,63 @@ INSERT INTO users(user_id,full_name,country_code,password,username,email) VALUES
 
 :)
 
-INSERT INTO examples(example_id,problem_id,input,output,description, methodHeader) VALUES
-(1,1,"Hello World","Hello World","Go Dawgs!!!", "location");
+INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
+(1,1,"Dr.Mario","True","","isHalfSemesterGrade");
 
 :)
 
 INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
-(2,2,"FIX BASED ON WHO CREATED PROBLEM","Hello World","Go Dawgs!!!","location");
+(2,1,"Prof.Coder","False","","isHalfSemesterGrade");
 
 :)
 
 INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
-(3,3,"Hello World","Hello World","Go Dawgs!!!","location");
+(3,2,"JAVAISAWESOME",":(","","lovePython");
+
+:)
+
+INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
+(4,2,"HTMLCSSPYTHONJAVASWIFT","Python is my love","","lovePython");
+
+:)
+
+INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
+(5,3,"Daniel","true","","willPlaneLand");
+
+:)
+
+INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
+(6,3,"Dwight","false","","willPlaneLand");
+
+:)
+
+INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
+(7,4,"Big brown bears eat big black bugs, surfboard, so funny,     your mom","LOL","","isFunny");
+
+:)
+
+INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
+(8,4,"why did the chicken cross the road","Do better","","isFunny");
+
+:)
+
+INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
+(9,5,"123","120","","subtractDigits");
+
+:)
+
+INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
+(10,5,"1000","996","","subtractDigits");
+
+:)
+
+INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
+(11,6,"123","even","","digitsOddOrEven");
+
+:)
+
+INSERT INTO examples(example_id,problem_id,input,output,description,methodHeader) VALUES
+(12,6,"999999999","odd","","digitsOddOrEven");
 
 :)
 
