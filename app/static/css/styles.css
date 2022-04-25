@@ -151,16 +151,16 @@ ol.gradient-list {
 ol.gradient-list > li {
   background: white;
   border-radius: 0 0.5rem 0.5rem 0.5rem;
-  counter-increment: gradient-counter;
+  
   margin-top: 1rem;
   min-height: 3rem;
   padding: 1rem 1rem 1rem 3rem;
   position: relative;
 }
 ol.gradient-list > li::before, ol.gradient-list > li::after {
-  background: linear-gradient(135deg, #83e4e2 0%, #a2ed56 100%);
+  
   border-radius: 1rem 1rem 0 1rem;
-  content: "";
+ 
   height: 3rem;
   left: -1rem;
   overflow: hidden;
@@ -170,7 +170,7 @@ ol.gradient-list > li::before, ol.gradient-list > li::after {
 }
 ol.gradient-list > li::before {
   align-items: flex-end;
-  content: counter(gradient-counter);
+  
   color: #1d1f20;
   display: flex;
   font: 900 1.5em/1 "Montserrat";
@@ -233,13 +233,8 @@ ol.gradient-list > li + li {
 }
 
 #image {
-  width: 8%;
-  height: 8%;
+  width: 50px;
+  height: 50px;
   float: right;
-}
-
-#login-text {
-  float: right;
-  padding-right: 5%;
-  padding-top: 3.5%;
+  clear: left;
 }
