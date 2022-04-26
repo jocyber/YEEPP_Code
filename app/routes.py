@@ -178,16 +178,30 @@ def parse_code():
             output=run_code(source_code = code, function_name = func, input_values = input_values, output_values = output_values)
 
 
+
             
             outputdata.append(output)
                 
-        print(outputdata," hi")
 
+            if "not found" in output:
+                outputdata.append(output)
+                break
 
+            elif "syntax" in output:
+                outputdata.append(output)
+                break
 
+            elif "fail" in output:
+                outputdata.append(output)
 
+            elif "success" in output:
+                outputdata.append(output)
+                conn = sql.connect("database.db")
+                cursor = conn.cursor()
 
-
+                cursor.execute("UPDATE userproblems SET isComplete = 1;")
+                cursor.execute("Commit;")
+                conn.close()
 
         return outputdata[0]
 

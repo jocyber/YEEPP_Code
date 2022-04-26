@@ -1,2 +1,0 @@
-def lovePython(val):
-    return ""
