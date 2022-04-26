@@ -191,12 +191,14 @@ def parse_code():
 
             elif "success" in output:
                 outputdata.append(output)
+                conn = sql.connect("database.db")
+                cursor = conn.cursor()
+
+                cursor.execute("UPDATE userproblems SET isComplete = 1;")
+                cursor.execute("Commit;")
+                conn.close()
 
         print(outputdata," hi")
-
-        
-
-
 
         return outputdata[0]
 
