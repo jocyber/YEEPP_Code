@@ -23,7 +23,8 @@ function updateLike() {
         url: "/update_count",
         data: {"data": "like", "id": id},
         success: function(data) {
-            document.getElementById("numLikes").innerHTML = data;
+            document.getElementById("numLikes").innerHTML = data.likes;
+            document.getElementById("numdislikes").innerHTML = data.dislikes;
         }
     });
 }
@@ -36,7 +37,8 @@ function updateDislike() {
         url: "/update_count",
         data: {"data": "dislike", "id": id},
         success: function(data) {
-            document.getElementById("numdislikes").innerHTML = data;
+            document.getElementById("numdislikes").innerHTML = data.dislikes;
+            document.getElementById("numLikes").innerHTML = data.likes;
         }
     });
 }

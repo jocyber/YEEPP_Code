@@ -47,37 +47,36 @@ CREATE TABLE IF NOT EXISTS  userproblems  (
 :)
 
 CREATE TRIGGER increment_new_like AFTER UPDATE OF isLike ON userproblems
-
-WHEN old.isLike = NULL AND new.isLike = 1
-BEGIN
-UPDATE problems SET likes = likes + 1 WHERE old.problem_id = problems.problem_id;
-END;
+    WHEN old.isLike IS NULL AND new.isLike = 1
+    BEGIN
+        UPDATE problems SET likes = likes + 1 WHERE new.problem_id = problems.problem_id;
+    END;
 
 :)
 
 CREATE TRIGGER increment_old_like AFTER UPDATE OF isLike ON userproblems
-WHEN old.isLike = 0 AND new.isLike = 1
-BEGIN
-UPDATE problems SET likes = likes + 1 WHERE old.problem_id = problems.problem_id;
-UPDATE problems SET dislikes = dislikes -1 WHERE old.problem_id = problems.problem_id;
-END;
+    WHEN old.isLike = 0 AND new.isLike = 1
+    BEGIN
+        UPDATE problems SET likes = likes + 1 WHERE old.problem_id = problems.problem_id;
+        UPDATE problems SET dislikes = dislikes -1 WHERE old.problem_id = problems.problem_id;
+    END;
 
 :)
 
 CREATE TRIGGER increment_new_dislike AFTER UPDATE OF isLike ON userproblems
-WHEN old.isLike = NULL AND new.isLike = 0
-BEGIN
-UPDATE problems SET dislikes = dislikes + 1 WHERE old.problem_id = problems.problem_id;
-END;
+    WHEN old.isLike IS NULL AND new.isLike = 0
+    BEGIN
+        UPDATE problems SET dislikes = dislikes + 1 WHERE old.problem_id = problems.problem_id;
+    END;
 
 :)
 
 CREATE TRIGGER increment_old_dislike AFTER UPDATE OF isLike ON userproblems
-WHEN old.isLike = 1 AND new.isLike = 0
-BEGIN
-UPDATE problems SET dislikes = dislikes + 1 WHERE old.problem_id = problems.problem_id;
-UPDATE problems SET likes = likes -1 WHERE old.problem_id = problems.problem_id;
-END;
+    WHEN old.isLike = 1 AND new.isLike = 0
+    BEGIN
+        UPDATE problems SET dislikes = dislikes + 1 WHERE old.problem_id = problems.problem_id;
+        UPDATE problems SET likes = likes -1 WHERE old.problem_id = problems.problem_id;
+    END;
 
 :)
 
