@@ -12,16 +12,17 @@
 <!--left styling-->
 <div id="leftCodeStuff">
     <p style="font-weight: bold; font-size: 20px;">{{descr.id}}. {{descr.title}}</p>
+    <br>
     <button class="txt-button" type="submit" value="{{descr.id}}" onclick="updateLike()" id="like">Likes: <p id="numLikes">{{descr.likes}}</p></button> 
     <button class="txt-button" type="submit" value="{{descr.id}}" onclick="updateDislike()" id="dislike">&emsp;Dislikes: <p id="numdislikes">{{descr.dislikes}}</p></button>
 
-    <hr style="color: rgb(78, 78, 78);">
-    <p>{{descr.description}}</p>
-    <hr style="color: rgb(78, 78, 78);">
+    <br>
+    <p style="max-width:400px; word-wrap:break-word;">{{descr.description}}</p>
+    <br>
 
     <p>Example 1: </p>
 
-    <div id="example-box">
+    <div id="example-box" style="max-width:400px; word-wrap:break-word;">
         <pre>
 <span style="font-weight: bold;">Input:</span> {{descr.input}}                 
 <span style="font-weight: bold;">Output:</span> {{descr.output}}
@@ -31,7 +32,7 @@
 
     <br><br>
     <p>Output: </p>
-    <div id="example-box">
+    <div id="example-box" style="max-width:400px; word-wrap:break-word;">
         <pre>
 <span style="font-weight: bold;">Output:</span><span id="codeOutput"></span>
         </pre>
