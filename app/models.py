@@ -3,7 +3,10 @@ class Problems():
     def __init__(self,data=[0,1,2,3,4,5,112,3]):
         self.id = data[0]
         self.title = data[4]
-        self.acceptance = data[2]
+        try:
+            self.acceptance = data[3] / data[2] * 100
+        except:
+            self.acceptance = 0
         self.difficulty = data[1]
         self.likes = data[6]
         self.dislikes = data[7]
