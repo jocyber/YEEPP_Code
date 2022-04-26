@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS  users  (
    country_code INT(16) NOT NULL,
    salt  VARCHAR(32),
    password  VARCHAR(40) NOT NULL,
-   username  VARCHAR(25) NOT NULL,
-   email  VARCHAR(32) NOT NULL
+   username  VARCHAR(25) NOT NULL UNIQUE,
+   email  VARCHAR(32) NOT NULL UNIQUE
 );
 
 :)
@@ -41,7 +41,8 @@ CREATE TABLE IF NOT EXISTS  userproblems  (
    isFavorite  BIT(1),
    isComplete  BIT(1),
    isLike INT NULL,
-  FOREIGN KEY (problem_id) REFERENCES problems(problem_id)
+  FOREIGN KEY (problem_id) REFERENCES problems(problem_id),
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 :)
