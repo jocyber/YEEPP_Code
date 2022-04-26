@@ -47,6 +47,20 @@ CREATE TABLE IF NOT EXISTS  userproblems  (
 
 :)
 
+CREATE TRIGGER increment_complete AFTER UPDATE OF isComplete ON userproblems
+    BEGIN
+        UPDATE problems SET solved = solved + 1 WHERE problem_id = old.problem_id;
+    END;
+
+:)
+
+CREATE TRIGGER increment_attempted AFTER INSERT ON userproblems
+    BEGIN
+        UPDATE problems SET attempted = attempted + 1 WHERE problem_id = new.problem_id;
+    END;
+
+:)
+
 CREATE TRIGGER increment_new_like AFTER UPDATE OF isLike ON userproblems
     WHEN old.isLike IS NULL AND new.isLike = 1
     BEGIN
