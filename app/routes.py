@@ -5,7 +5,7 @@ from app.models import Problems, Problem_Info, User
 import sqlite3 as sql
 from app.restricted import run_code
 from werkzeug.utils import secure_filename
-
+import pandas as pd
 import base64
 """Copied from https://nitratine.net/blog/post/how-to-hash-passwords-in-python/
 By author unlisted...
@@ -178,20 +178,9 @@ def parse_code():
             output=run_code(source_code = code, function_name = func, input_values = input_values, output_values = output_values)
 
 
-            if "not found" in output:
-                outputdata.append(output)
-                break
-
-            elif "syntax" in output:
-                outputdata.append(output)
-                break
-
-            elif "fail" in output:
-                outputdata.append(output)
-
-            elif "success" in output:
-                outputdata.append(output)
-
+            
+            outputdata.append(output)
+                
         print(outputdata," hi")
 
 
@@ -212,22 +201,32 @@ def update_count():
         conn = sql.connect("database.db")
         cursor = conn.cursor()
 
+        cursor.execute(f"SELECT * from problems where problem_id={id};")
+        initial_result = cursor.fetchall()[0]
+        initial_problem = Problems(initial_result)
+        try:
+            conn.execute("SELECT user_id FROM users WHERE username = (?)",(int(req.form["username"])))
+            user_id = conn.fetchall()[0][0]
+        except:
+            print("Error",req.form["username"])
+            return {"likes":initial_problem.likes, "dislikes": initial_problem.dislikes}
+
         if data == 'like':
-            cursor.execute(f"UPDATE userproblems SET isLike=1 WHERE problem_id = {id};")
+            cursor.execute(f"UPDATE userproblems SET isLike=1 WHERE problem_id = (?) AND user_id = (?);",(id,user_id))
             cursor.execute("Commit;")#commit the transaction
             cursor.execute(f"SELECT * from problems where problem_id={id};")
             row = cursor.fetchall()[0]
-            num = str(Problems(row).likes)
+            prob = Problems(row)
         elif data == 'dislike':
-            cursor.execute(f"UPDATE userproblems SET isLike=0 WHERE problem_id={id};")
+            cursor.execute(f"UPDATE userproblems SET isLike=0 WHERE problem_id=(?) AND user_id = (?);",(id,user_id))
             cursor.execute("Commit;")
             cursor.execute(f"SELECT * from problems where problem_id={id};")
             row = cursor.fetchall()[0]
-            num = str(Problems(row).dislikes)
-
+            prob = Problems(row)
         conn.close()
-
-        return num
+        prob = {"likes":prob.likes,"dislikes":prob.dislikes}
+        print(prob)
+        return  prob
 
 
 #function for handling the users code

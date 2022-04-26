@@ -15,15 +15,20 @@ safe_builtins["_write_"] = full_write_guard
 
 def run_code(source_code,function_name="myFunc",input_values=[""], output_values=""):
 
-    output = {}
-    code = compile_restricted(source_code,'<string>','exec')
+    output = {} 
+    try: 
+        code = compile_restricted(source_code,'<string>','exec') 
+    except SyntaxError as e: return f"Syntax Error {e}"
     print(source_code)
+    
     try:
         exec(code,{'__builtins__':safe_builtins},output)
     except SyntaxError as e:
         print(f"Synax error by user: {e}")
         #user facing return
         return "syntax error"
+    except ImportError as oi:
+        return "Hey now, I said no importing packages :<"
     try:
         if len(input_values) > 0:
             out = output[function_name](input_values)
@@ -40,3 +45,9 @@ def run_code(source_code,function_name="myFunc",input_values=[""], output_values
         print(f"function {function_name} not found in \n{source_code}")
         #user facing return
         return f"function {function_name} not found"
+
+    except SyntaxError as e: 
+        return f"syntax error {e}"
+
+    except:
+        return "Stop executing that sus code now. By the way, you've been reported :)"
