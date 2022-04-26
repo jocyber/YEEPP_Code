@@ -21,11 +21,9 @@ function updateLike() {
     $.ajax({
         type: "POST",
         url: "/update_count",
-        contentType: "application/json",
-        data: JSON.stringify({"data": "like", "id": id}),
+        data: {"data": "like", "id": id},
         success: function(data) {
-            document.getElementById("numLikes").innerHTML = data.likes;
-            document.getElementById("numdislikes").innerHTML = data.dislikes;
+            document.getElementById("numLikes").innerHTML = data
         }
     });
 }
@@ -36,11 +34,9 @@ function updateDislike() {
     $.ajax({
         type: "POST",
         url: "/update_count",
-        contentType: 'application/json',
-        data: JSON.stringify({"data": "dislike", "id": id}),
+        data:{"data": "dislike", "id": id},
         success: function(data) {
-            document.getElementById("numdislikes").innerHTML = data.dislikes;
-            document.getElementById("numLikes").innerHTML = data.likes;
+            document.getElementById("numdislikes").innerHTML = data;
         }
     });
 }
