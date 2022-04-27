@@ -144,7 +144,7 @@ def parse_code():
 
         #print(problem)
 
-        cursor.execute("SELECT input, output, methodHeader FROM examples WHERE problem_id = (?)",(int(problem)))
+        cursor.execute("SELECT input, output, methodHeader FROM examples WHERE problem_id = (?)",([problem]))
         examples = cursor.fetchall()
 
         outputdata = []
@@ -162,7 +162,7 @@ def parse_code():
 
             cursor.execute("SELECT * FROM userproblems WHERE user_id = (?) AND problem_id = (?)")
             if len(cursor.fetchall()) <1:
-                cursor.execute("INSERT INTO userproblems(user_id,problem_id,isFavorite,isComplete) VALUES( (?), (?), 0, 0);",(user_id,int(problem)))
+                cursor.execute("INSERT INTO userproblems(user_id,problem_id,isFavorite,isComplete) VALUES( (?), (?), 0, 0);",(user_id,problem))
 
             #TODO implement update existing userproblem
         except:
