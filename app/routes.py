@@ -88,6 +88,7 @@ def index():
 
     new_page = page_with_cookie("index")
     file = get_upload()
+    print(problems[0].acceptance)
     return render_template(new_page, data=problems, image=url_for('static', filename=f'images/{file}'))
 
 @app.route('/upload', methods=["POST"])
@@ -143,7 +144,7 @@ def parse_code():
 
         #print(problem)
 
-        cursor.execute("SELECT input, output, methodHeader FROM examples WHERE problem_id = (?)",([problem]))
+        cursor.execute("SELECT input, output, methodHeader FROM examples WHERE problem_id = (?)",(int(problem)))
         examples = cursor.fetchall()
 
         outputdata = []
@@ -161,7 +162,7 @@ def parse_code():
 
             cursor.execute("SELECT * FROM userproblems WHERE user_id = (?) AND problem_id = (?)")
             if len(cursor.fetchall()) <1:
-                cursor.execute("INSERT INTO userproblems(user_id,problem_id,isFavorite,isComplete) VALUES( (?), (?), 0, 0);",(user_id,problem))
+                cursor.execute("INSERT INTO userproblems(user_id,problem_id,isFavorite,isComplete) VALUES( (?), (?), 0, 0);",(user_id,int(problem)))
 
             #TODO implement update existing userproblem
         except:
@@ -211,10 +212,10 @@ def update_count():
     if request.method == "POST":
         data = req.form["data"]
         id = req.form["id"]
-
+        num=0
         conn = sql.connect("database.db")
         cursor = conn.cursor()
-
+        print("why me")
         cursor.execute(f"SELECT * from problems where problem_id={id};")
         initial_result = cursor.fetchall()[0]
         initial_problem = Problems(initial_result)
@@ -231,16 +232,19 @@ def update_count():
             cursor.execute(f"SELECT * from problems where problem_id={id};")
             row = cursor.fetchall()[0]
             prob = Problems(row)
+            num = str(prob.likes)
         elif data == 'dislike':
             cursor.execute(f"UPDATE userproblems SET isLike=0 WHERE problem_id=(?) AND user_id = (?);",(id,user_id))
             cursor.execute("Commit;")
             cursor.execute(f"SELECT * from problems where problem_id={id};")
             row = cursor.fetchall()[0]
             prob = Problems(row)
+            num = str(prob.dislikes)
         conn.close()
         prob = {"likes":prob.likes,"dislikes":prob.dislikes}
         print(prob)
-        return  prob
+        print(num)
+        return  str(num)
 
 
 #function for handling the users code

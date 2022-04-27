@@ -23,7 +23,7 @@ function updateLike() {
         url: "/update_count",
         data: {"data": "like", "id": id},
         success: function(data) {
-            document.getElementById("numLikes").innerHTML = data
+            document.getElementById("numLikes").innerHTML = data;
         }
     });
 }
